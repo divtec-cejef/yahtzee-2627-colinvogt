@@ -33,12 +33,19 @@ public class YahtzeeProcedural {
 
         do {
             desChoisi = myObj.nextLine();
+            if (desChoisi.equals(0) || desChoisi.isEmpty()) {
+                afficherDee();
+                break;
+            } else {
+                for (int i = 0; i < desChoisi.split(" ").length; i++) {
+                    desChoisi(Integer.parseInt())
 
-            if (desChoisi == 0 || desChoisi.isEmpty())
+                }
+            }
 
 
 
-        } while ()
+        } while (compteur != 2)
 
     }
 }
