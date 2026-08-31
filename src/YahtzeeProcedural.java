@@ -8,6 +8,7 @@ public class YahtzeeProcedural {
 
     /**
      * Genere des face de dé aleatoire
+     *
      * @param nbrFace le nombre de face du dé
      * @return Un face aleatoire du dé
      */
@@ -17,6 +18,7 @@ public class YahtzeeProcedural {
 
     /**
      * Affiche les dés de la liste de dé mise en parametre
+     *
      * @param deTire La liste de dé
      */
     public static void afficherDee(int[] deTire) {
@@ -27,6 +29,7 @@ public class YahtzeeProcedural {
 
     /**
      * Demande a l'utilisateur si il veut relancer rien ou plusieur dé
+     *
      * @return les dé que l'utilisateur a saisie mais converti en int
      */
     public static int[] demandeRelance() {
@@ -48,8 +51,9 @@ public class YahtzeeProcedural {
 
     /**
      * Relance les dés mis en parametre
-     * @param deTire Liste de resultat qui va etre modifier
-     * @param desChoisi Liste de des choisi a etre modifié
+     *
+     * @param deTire    Liste de resultat qui va etre modifier
+     * @param desChoisi Liste de dés choisi a etre modifié
      * @return
      */
     public static int[] relanceDe(int[] deTire, int[] desChoisi) {
@@ -60,30 +64,46 @@ public class YahtzeeProcedural {
     }
 
     /**
-     * point d'entré du progranmme
-     * @param args
+     *  Compte et renvoi le nombre d'Ocurence
+     * @param deTire La liste qui ba etre trier
+     * @return Une liste du nombre d'Ocurence pour chacun des chiffre
      */
-    public static void main(String[] args) {
-        int[] deTire = new int[NBRE_DE];
-
-        for (int i = 0; i < deTire.length; i++) {
-            deTire[i] = genereFaceAleatoire(NBRE_FACE);
+    public static int[] compteNbreOccurences(int[] deTire) {
+        int[] nbrOccuren = new int[NBRE_FACE];
+        for (int position = 0; position < deTire.length; position++) {
+            nbrOccuren[deTire[position] -1]++;
         }
-        afficherDee(deTire);
-        for (int i = 0; i < 2; i++) {
-            int[] position = demandeRelance();
-            if (position.length == 0) {
-                break;
-            } else {
-                relanceDe(deTire, position);
-                if (i != 1) {
-                    afficherDee(deTire);
-                }
+        return nbrOccuren;
+}
+
+/**
+ * Point d'entré du progranmme
+ *
+ * @param args
+ */
+public static void main(String[] args) {
+    int[] deTire = new int[NBRE_DE];
+
+    for (int i = 0; i < deTire.length; i++) {
+        deTire[i] = genereFaceAleatoire(NBRE_FACE);
+    }
+    afficherDee(deTire);
+    for (int i = 0; i < 2; i++) {
+        int[] position = demandeRelance();
+        if (position.length == 0) {
+            break;
+        } else {
+            relanceDe(deTire, position);
+            if (i != 1) {
+                afficherDee(deTire);
             }
         }
-        afficherDee(deTire);
-        System.out.println("C'est FINI !");
-
+    }
+    afficherDee(deTire);
+    System.out.println("\n\n");
+    for (int index = 0; index < deTire.length + 1; index++) {
+        System.out.println("Nombre de fois " + (index + 1) + " dans les de tiré : " + compteNbreOccurences(deTire)[index]);
+    }
 
 
 
@@ -110,6 +130,6 @@ public class YahtzeeProcedural {
                 }
             } while (compteur <= 2);
 */
-    }
+}
 
 }
