@@ -64,72 +64,129 @@ public class YahtzeeProcedural {
     }
 
     /**
-     *  Compte et renvoi le nombre d'Ocurence
+     * Compte et renvoi le nombre d'Ocurence
+     *
      * @param deTire La liste qui ba etre trier
      * @return Une liste du nombre d'Ocurence pour chacun des chiffre
      */
     public static int[] compteNbreOccurences(int[] deTire) {
         int[] nbrOccuren = new int[NBRE_FACE];
         for (int position = 0; position < deTire.length; position++) {
-            nbrOccuren[deTire[position] -1]++;
+            nbrOccuren[deTire[position] - 1]++;
         }
         return nbrOccuren;
-}
-
-/**
- * Point d'entré du progranmme
- *
- * @param args
- */
-public static void main(String[] args) {
-    int[] deTire = new int[NBRE_DE];
-
-    for (int i = 0; i < deTire.length; i++) {
-        deTire[i] = genereFaceAleatoire(NBRE_FACE);
     }
-    afficherDee(deTire);
-    for (int i = 0; i < 2; i++) {
-        int[] position = demandeRelance();
-        if (position.length == 0) {
-            break;
-        } else {
-            relanceDe(deTire, position);
-            if (i != 1) {
-                afficherDee(deTire);
+
+    public static int unePaire(int[] nbreOccuren) {
+        for (int i = 0; i < nbreOccuren.length; i++) {
+            if (nbreOccuren[i] == 2 && fullHouse(nbreOccuren) == 0) {
+                return 5;
             }
         }
-    }
-    afficherDee(deTire);
-    System.out.println("\n\n");
-    for (int index = 0; index < deTire.length + 1; index++) {
-        System.out.println("Nombre de fois " + (index + 1) + " dans les de tiré : " + compteNbreOccurences(deTire)[index]);
+        return 0;
     }
 
+    public static int deuxPaire(int[] nbreOccuren) {
+        int nbrPaire = 0;
+        for (int i = 0; i < nbreOccuren.length; i++) {
+            if (nbreOccuren[i] == 2) {
+                nbrPaire++;
+            }
+        }
+        if (nbrPaire == 2) {
+            return 10;
+        }
+        return 0;
+    }
+
+    public static int brelan(int[] nbreOccuren) {
+        for (int i = 0; i < nbreOccuren.length; i++) {
+            if (nbreOccuren[i] == 3 && fullHouse(nbreOccuren) == 0) {
+                return (i+1) * 3;
+            }
+        }
+        return 0;
+    }
 
 
-        /*
-        System.out.println("\nQuel dés voulez vous relancez ? (Saisir de 1-5 ou 0 si vous ne voulez pas relancer) Atenttion 3 lancé MAX!\n");
-        for (int index = 0; index < deTire.length; index++) {
-            System.out.println("Dé " + (index + 1));}
+    public static int carre(int[] nbreOccuren) {
+        for (int i = 0; i < nbreOccuren.length; i++) {
+            if (nbreOccuren[i] == 4) {
+                return (i+1) * 4;
+            }
+        }
+        return 0;
+    }
 
-            String desChoisi;
-            Scanner myObj = new Scanner(System.in);
-            int compteur = 1;
+    public static int fullHouse(int[] nbreOccuren) {
+        if (brelan(nbreOccuren) != 0 && unePaire(nbreOccuren) != 0) {
+            return 25;
+        }
+        return 0;
+    }
 
-            do {
-                desChoisi = myObj.nextLine();
-                if (desChoisi.equals("0") || desChoisi.isEmpty()) {
+    public static int petiteSuite(int[] nbreOccuren) {
+       for (int i = 0; i < nbreOccuren.length; i++) {
+           if (nbreOccuren[i] >= 1 && nbreOccuren[i+1] >= 1 && nbreOccuren[i+2] >= 1 && nbreOccuren[i+3] >= 1) {
+            return 30;
+           }
+       }
+       return 0;
+    }
+
+/*    public static boolean grandeSuite(int[] nbreOccuren) {
+
+    }
+
+    public static boolean Yahtzee(int[] nbreOccuren) {
+
+    }*/
+
+    public static boolean[] detectCombinaison(int[] nbreOccuren) {
+
+        boolean[] combinaison = new boolean[8];
+
+        return combinaison;
+    }
+
+    /**
+     * Point d'entré du progranmme
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        int[] deTire = new int[NBRE_DE];
+
+        for (int i = 0; i < deTire.length; i++) {
+            deTire[i] = genereFaceAleatoire(NBRE_FACE);
+        }
+        afficherDee(deTire);
+        for (int i = 0; i < 2; i++) {
+            int[] position = demandeRelance();
+            if (position.length == 0) {
+                break;
+            } else {
+                relanceDe(deTire, position);
+                if (i != 1) {
                     afficherDee(deTire);
-                    break;
-                } else {
-                    for (int i = 0; i < desChoisi.split(regex).length; i++) {
-                        deTire[(Integer.parseInt(desChoisi.split(regex)[i]) - 1)] = genereFaceAleatoire(NBRE_FACE);
-                    }
-                    afficherDee(deTire);
-                    compteur++;
                 }
-            } while (compteur <= 2);
-*/
-}
+            }
+        }
+        afficherDee(deTire);
+        System.out.println("\n\n");
+        for (int index = 0; index < deTire.length + 1; index++) {
+            System.out.println("Nombre de fois " + (index + 1) + " dans les de tiré : " + compteNbreOccurences(deTire)[index]);
+        }
+
+        int[] test = {0, 0, 2, 0, 3, 0};
+        ;
+        System.out.println("Une paire : " + unePaire(test));
+        System.out.println("Deux paire : " + deuxPaire(test));
+        System.out.println("Brelan : " + brelan(test));
+        System.out.println("carre : " + carre(test));
+        System.out.println("fullHouse : " + fullHouse(test));
+        System.out.println("petiteSuite : " + petiteSuite(test));
+
+    }
 
 }
