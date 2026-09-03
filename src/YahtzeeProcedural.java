@@ -77,19 +77,24 @@ public class YahtzeeProcedural {
         return nbrOccuren;
     }
 
-    public static int unePaire(int[] nbreOccuren) {
+    /**
+     * Detcte un paire
+     * @param nbreOccuren
+     * @return
+     */
+    public static boolean unePaire(int[] nbreOccuren) {
         for (int i = 0; i < nbreOccuren.length; i++) {
-            if (nbreOccuren[i] == 2 && fullHouse(nbreOccuren) == 0) {
-                return 5;
+            if (nbreOccuren[i] >= 2) {
+                return true;
             }
         }
-        return 0;
+        return false;
     }
 
     public static int deuxPaire(int[] nbreOccuren) {
         int nbrPaire = 0;
         for (int i = 0; i < nbreOccuren.length; i++) {
-            if (nbreOccuren[i] == 2) {
+            if (nbreOccuren[i] >= 2) {
                 nbrPaire++;
             }
         }
@@ -101,8 +106,8 @@ public class YahtzeeProcedural {
 
     public static int brelan(int[] nbreOccuren) {
         for (int i = 0; i < nbreOccuren.length; i++) {
-            if (nbreOccuren[i] == 3 && fullHouse(nbreOccuren) == 0) {
-                return (i+1) * 3;
+            if (nbreOccuren[i] >= 3) {
+                return (i + 1) * 3;
             }
         }
         return 0;
@@ -111,42 +116,51 @@ public class YahtzeeProcedural {
 
     public static int carre(int[] nbreOccuren) {
         for (int i = 0; i < nbreOccuren.length; i++) {
-            if (nbreOccuren[i] == 4) {
-                return (i+1) * 4;
+            if (nbreOccuren[i] >= 4) {
+                return (i + 1) * 4;
             }
         }
         return 0;
     }
 
     public static int fullHouse(int[] nbreOccuren) {
-        if (brelan(nbreOccuren) != 0 && unePaire(nbreOccuren) != 0) {
+        boolean possedePaire = false;
+        for (int i = 0; i < nbreOccuren.length; i++) {
+            if (nbreOccuren[i] == 2) {
+                possedePaire = true;
+            }
+        }
+        if (brelan(nbreOccuren) != 0 && possedePaire) {
             return 25;
         }
         return 0;
     }
 
     public static int petiteSuite(int[] nbreOccuren) {
-       for (int i = 0; i < nbreOccuren.length; i++) {
-           if (nbreOccuren[i] >= 1 && nbreOccuren[i+1] >= 1 && nbreOccuren[i+2] >= 1 && nbreOccuren[i+3] >= 1) {
-            return 30;
-           }
-       }
-       return 0;
+        for (int i = 0; i < 3; i++) {
+            if (nbreOccuren[i] >= 1 && nbreOccuren[i + 1] >= 1 && nbreOccuren[i + 2] >= 1 && nbreOccuren[i + 3] >= 1) {
+                return 30;
+            }
+        }
+        return 0;
     }
 
-/*    public static boolean grandeSuite(int[] nbreOccuren) {
-
+    public static int grandeSuite(int[] nbreOccuren) {
+        for (int i = 0; i < 2; i++) {
+            if (nbreOccuren[i] >= 1 && nbreOccuren[i + 1] >= 1 && nbreOccuren[i + 2] >= 1 && nbreOccuren[i + 3] >= 1 && nbreOccuren[i + 4] >= 1) {
+                return 40;
+            }
+        }
+        return 0;
     }
 
-    public static boolean Yahtzee(int[] nbreOccuren) {
-
-    }*/
-
-    public static boolean[] detectCombinaison(int[] nbreOccuren) {
-
-        boolean[] combinaison = new boolean[8];
-
-        return combinaison;
+    public static int yahtzee(int[] nbreOccuren) {
+        for (int i = 0; i < nbreOccuren.length; i++) {
+            if (nbreOccuren[i] == 5) {
+                return 50;
+            }
+        }
+        return 0;
     }
 
     /**
@@ -174,19 +188,27 @@ public class YahtzeeProcedural {
         }
         afficherDee(deTire);
         System.out.println("\n\n");
-        for (int index = 0; index < deTire.length + 1; index++) {
-            System.out.println("Nombre de fois " + (index + 1) + " dans les de tiré : " + compteNbreOccurences(deTire)[index]);
-        }
 
-        int[] test = {0, 0, 2, 0, 3, 0};
-        ;
-        System.out.println("Une paire : " + unePaire(test));
-        System.out.println("Deux paire : " + deuxPaire(test));
-        System.out.println("Brelan : " + brelan(test));
-        System.out.println("carre : " + carre(test));
-        System.out.println("fullHouse : " + fullHouse(test));
-        System.out.println("petiteSuite : " + petiteSuite(test));
+        int[] nbreOccurent = compteNbreOccurences(deTire);
+            System.out.println("1.Une paire :   [" + unePaire(nbreOccurent) + " pts]");
+            System.out.println("2.Deux paire :  [" + deuxPaire(nbreOccurent) + " pts]");
+            System.out.println("3.Brelan :      [" + brelan(nbreOccurent) + " pts]");
+            System.out.println("4.carre :       [" + carre(nbreOccurent) + " pts]");
+            System.out.println("5.fullHouse :   [" + fullHouse(nbreOccurent) + " pts]");
+            System.out.println("6.petiteSuite : [" + petiteSuite(nbreOccurent) + " pts]");
+            System.out.println("7.grandeSuite : [" + grandeSuite(nbreOccurent) + " pts]");
+            System.out.println("8.Yatzee :      [" + yahtzee(nbreOccurent) + " pts]");
+            int combinaisonsChoisi;
+            Scanner myObj = new Scanner(System.in);
+            combinaisonsChoisi = myObj.nextInt();
 
+            int totalPoint = 0;
+
+            switch (combinaisonsChoisi) {
+                case 1: if (unePaire(nbreOccurent)) {
+
+                }
+            }
     }
 
 }
