@@ -82,13 +82,13 @@ public class YahtzeeProcedural {
      * @param nbreOccuren
      * @return
      */
-    public static boolean unePaire(int[] nbreOccuren) {
+    public static int unePaire(int[] nbreOccuren) {
         for (int i = 0; i < nbreOccuren.length; i++) {
             if (nbreOccuren[i] >= 2) {
-                return true;
+                return 5;
             }
         }
-        return false;
+        return 0;
     }
 
     public static int deuxPaire(int[] nbreOccuren) {
@@ -189,26 +189,62 @@ public class YahtzeeProcedural {
         afficherDee(deTire);
         System.out.println("\n\n");
 
+
+        String[] combinaison = {
+                "Une paire",
+                "Deux paire",
+                "Brelan",
+                "Carre",
+                "FullHouse",
+                "PetiteSuite",
+                "GrandeSuite",
+                "Yatzee"
+        };
+
         int[] nbreOccurent = compteNbreOccurences(deTire);
-            System.out.println("1.Une paire :   [" + unePaire(nbreOccurent) + " pts]");
-            System.out.println("2.Deux paire :  [" + deuxPaire(nbreOccurent) + " pts]");
-            System.out.println("3.Brelan :      [" + brelan(nbreOccurent) + " pts]");
-            System.out.println("4.carre :       [" + carre(nbreOccurent) + " pts]");
-            System.out.println("5.fullHouse :   [" + fullHouse(nbreOccurent) + " pts]");
-            System.out.println("6.petiteSuite : [" + petiteSuite(nbreOccurent) + " pts]");
-            System.out.println("7.grandeSuite : [" + grandeSuite(nbreOccurent) + " pts]");
-            System.out.println("8.Yatzee :      [" + yahtzee(nbreOccurent) + " pts]");
+        int[] point = {
+                unePaire(nbreOccurent),
+                deuxPaire(nbreOccurent),
+                brelan(nbreOccurent),
+                carre(nbreOccurent),
+                fullHouse(nbreOccurent),
+                petiteSuite(nbreOccurent),
+                grandeSuite(nbreOccurent),
+                yahtzee(nbreOccurent)
+        };
+
+        boolean[] dejaUtiliser = {
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+        };
+
+        int totalPoint = 0;
+        boolean repeter = true;
+        do {
+            System.out.println("\n");
+            for (int i = 0; i < combinaison.length; i++) {
+                if (!dejaUtiliser[i]) {
+                    System.out.printf("%d.%-15s [%d pts]\n", i + 1, combinaison[i], point[i]);
+                }
+            }
+
             int combinaisonsChoisi;
             Scanner myObj = new Scanner(System.in);
             combinaisonsChoisi = myObj.nextInt();
-
-            int totalPoint = 0;
-
-            switch (combinaisonsChoisi) {
-                case 1: if (unePaire(nbreOccurent)) {
-
-                }
+            if (combinaisonsChoisi != 0) {
+                point[combinaisonsChoisi - 1] += totalPoint;
+                dejaUtiliser[combinaisonsChoisi - 1] = true;
+            } else {
+                repeter = false;
             }
+        }while (repeter);
+        System.out.println(totalPoint);
     }
 
 }
