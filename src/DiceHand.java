@@ -31,7 +31,7 @@ public class DiceHand {
       }
     }
 
-    public int[] geValue() {
+    public int[] getValue() {
         int[] value = new int[dice.length];
         for (int i=0; i < value.length; i++) {
             value[i] = dice[i].getVisibleSide();
