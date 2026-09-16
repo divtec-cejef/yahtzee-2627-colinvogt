@@ -1,14 +1,33 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class ScoreEntry {
 
-    private final Category category;
-    private final int NBRE_DE_MAX = 5;
-    private final int POINT_OBTENU = 0;
-    private final int[] JET_FINAL = new int[NBRE_DE_MAX];
+    private final Category CATEGORY;
+    private final int POINT_OBTENU;
+    private final int[] JET_FINAL;
 
     ScoreEntry (Category category, int pointObtenu, int[] jetFinal) {
-        this.category = category;
+        this.CATEGORY = category;
         this.POINT_OBTENU = pointObtenu;
         this.JET_FINAL = jetFinal;
     }
+
+    public Category getCategory() {
+        return CATEGORY;
+    }
+
+    public int getPointObtenu() {
+        return POINT_OBTENU;
+    }
+
+    public int[] getJetFinal() {
+        int[] copie = new int[JET_FINAL.length];
+        for (int i : copie) {
+            copie[i] = JET_FINAL[i];
+        }
+        return copie;
+    }
+
 
 }

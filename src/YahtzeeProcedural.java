@@ -1,4 +1,5 @@
 import java.util.Scanner; // import the Scanner class
+import java.util.ArrayList;
 
 public class YahtzeeProcedural {
 
