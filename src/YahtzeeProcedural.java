@@ -225,7 +225,7 @@ public class YahtzeeProcedural {
         int pointTotal = 0;
         boolean[] dejaUtiliser = new boolean[8];
         for (int i = 0; i < 5; i++) {
-            System.out.println("\nManche " + (i+1));
+            System.out.println("\nMANCHE " + (i+1) + "\n");
             int[] deTire = new int[NBRE_DE];
 
             for (int index = 0; index < deTire.length; index++) {
