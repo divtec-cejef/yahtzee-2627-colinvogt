@@ -6,4 +6,8 @@ public class ConsoleIO{
     ConsoleIO (Scanner myObj) {
         this.myObj = myObj;
     }
+
+    public void afficher(String prompt) {
+        System.out.println(prompt);
+    }
 }
