@@ -10,4 +10,8 @@ public class ConsoleIO{
     public void afficher(String prompt) {
         System.out.println(prompt);
     }
+
+    public String lireLigne() {
+        return myObj.nextLine();
+    }
 }
