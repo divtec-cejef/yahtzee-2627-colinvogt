@@ -4,11 +4,11 @@ public class Die {
     private int visibleSide;
 
     Die() {
-
     }
 
 public int roll() {
-        return (int) (Math.random() * sideCount + 1);
+        this.visibleSide = (int) (Math.random() * sideCount + 1);
+        return this.visibleSide;
     }
 
     public int getVisibleSide() {
