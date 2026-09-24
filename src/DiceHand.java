@@ -23,7 +23,7 @@ public class DiceHand {
 
     /**
      * Relance les dé a une liste d'index donné
-     * @param index
+     * @param index l'index au quel on doit relancer les dés
      */
     public void rerollDie(int[] index) {
       for (int i : index) {

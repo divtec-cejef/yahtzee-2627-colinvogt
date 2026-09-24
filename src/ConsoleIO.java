@@ -19,7 +19,7 @@ public class ConsoleIO{
     }
 
     /**
-     * Lit le prompte inserer par l'utilisateur
+     * Lit le prompt inserer par l'utilisateur
      * @return
      */
     public String lireLigne() {
