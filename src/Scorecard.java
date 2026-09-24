@@ -4,7 +4,9 @@ public class Scorecard {
     private ArrayList<ScoreEntry> historique = new ArrayList<>();
 
     public void ajouterScore(ScoreEntry entry) {
-        historique.add(entry);
+        if (!estUtilisee(entry.getCategory())) {
+            historique.add(entry);
+        }
     }
 
     public boolean estUtilisee(Category categorie) {
