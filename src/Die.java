@@ -4,7 +4,7 @@ public class Die {
     private int visibleSide;
 
     /**
-     * Constructeur
+     * Construit le dé
      */
     Die() {
     }
