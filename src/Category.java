@@ -10,15 +10,27 @@ public enum Category {
 
     private String nom;
 
+    /**
+     * Construit une category
+     * @param nom
+     */
     Category(String nom) {
         this.nom = nom;
     }
 
+    /**
+     * Obtient le nom de la category
+     * @return le nom de la category
+     */
     public String getNom () {
         return nom;
     }
 
-
+    /**
+     * Obtient le score corespondant au differente category
+     * @param dice la liste de dé traité
+     * @return le score
+     */
     public int getScore(DiceHand dice) {
         int[] occurrences = DiceHand.compteNbreOccurences(dice.getValue());
         return switch (this) {
