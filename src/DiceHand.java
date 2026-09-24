@@ -4,11 +4,11 @@ public class DiceHand {
     private Die[] dice = new Die[NBRE_DE];
 
     /**
-     * Initialise les dé
+     * Constructeur de la main de dé
      */
-    public void initialiseDie() {
-        for (int index = 0; index < dice.length; index++) {
-            dice[index].roll();
+    DiceHand() {
+        for (int i=0; i < dice.length; i++) {
+            dice[i] = new Die();
         }
     }
 
