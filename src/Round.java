@@ -1,15 +1,25 @@
+import java.util.Arrays;
+
 public class Round {
     private final ConsoleIO io;
     private final DiceHand diceHand;
     static final String regex = "[,\\.\\s]";
 
+    /**
+     * Construit le round
+     * @param io
+     */
     Round(ConsoleIO io) {
         this.io = io;
         this.diceHand = new DiceHand();
     }
 
+    /**
+     * Demande a l'utilisateur si il veut relancer rien ou plusieur dé
+     * @return les dé que l'utilisateur a saisie mais converti en int
+     */
     public int[] demandeRelance() {
-        System.out.println("\nQuel dés voulez vous relancez ? (Saisir de 1-5 ou 0 si vous ne voulez pas relancer) Atenttion 3 lancé MAX!\n");
+        io.afficher("\nQuel dés voulez vous relancez ? (Saisir de 1-5 ou 0 si vous ne voulez pas relancer) Atenttion 3 lancé MAX!\n");
         String desChoisi;
         desChoisi = io.lireLigne();
         String[] parts = desChoisi.split(regex);
@@ -24,10 +34,13 @@ public class Round {
         return indice;
     }
 
-
+    /**
+     * Joue la manche
+     * @return Un tableau int du jet final
+     */
     public int[] jouerManche() {
        diceHand.rollDice();
-        io.afficher(diceHand.toString());
+        io.afficher(Arrays.toString(diceHand.getValue()));
         for (int j = 0; j < 2; j++) {
             int[] position = demandeRelance();
             if (position.length == 0) {
@@ -35,11 +48,11 @@ public class Round {
             } else {
                diceHand.rerollDie(position);
                 if (j != 1) {
-                    io.afficher(diceHand.toString());
+                    io.afficher(Arrays.toString(diceHand.getValue()));
                 }
             }
         }
-        io.afficher(diceHand.toString());
+        io.afficher(Arrays.toString(diceHand.getValue()));
        return diceHand.getValue();
     }
 }
