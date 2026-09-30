@@ -36,9 +36,9 @@ public class Round {
 
     /**
      * Joue la manche
-     * @return Un tableau int du jet final
+     * @return le jet final
      */
-    public int[] jouerManche() {
+    public DiceHand jouerManche() {
        diceHand.rollDice();
         io.afficher(Arrays.toString(diceHand.getValue()));
         for (int j = 0; j < 2; j++) {
@@ -53,6 +53,6 @@ public class Round {
             }
         }
         io.afficher(Arrays.toString(diceHand.getValue()));
-       return diceHand.getValue();
+       return diceHand;
     }
 }
