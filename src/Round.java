@@ -8,25 +8,38 @@ public class Round {
         this.diceHand = new DiceHand();
     }
 
+    public int[] demandeRelance() {
+        System.out.println("\nQuel dés voulez vous relancez ? (Saisir de 1-5 ou 0 si vous ne voulez pas relancer) Atenttion 3 lancé MAX!\n");
+        String desChoisi;
+        desChoisi = io.lireLigne();
+        String[] parts = desChoisi.split(regex);
+        int[] indice = new int[parts.length];
+        if (desChoisi.equals("0") || desChoisi.isEmpty()) {
+            return new int[0];
+        } else {
+            for (int i = 0; i < parts.length; i++) {
+                indice[i] = Integer.parseInt(parts[i]) - 1;
+            }
+        }
+        return indice;
+    }
+
+
     public int[] jouerManche() {
-        boolean estRepete = true;
-        int compteurRepete = 0;
-        diceHand.rollDice();
-        do {
-            io.afficher("\nQuel dés voulez vous relancez ? (Saisir de 1-5 ou 0 si vous ne voulez pas relancer) Atenttion 3 lancé MAX!\n");
-            String desChoisi;
-            desChoisi = io.lireLigne();
-            String[] parts = desChoisi.split(regex);
-            int[] indice = new int[parts.length];
-            if (desChoisi.equals("0") || desChoisi.isEmpty()) {
-                estRepete = false;
+       diceHand.rollDice();
+        io.afficher(diceHand.toString());
+        for (int j = 0; j < 2; j++) {
+            int[] position = demandeRelance();
+            if (position.length == 0) {
+                break;
             } else {
-                for (int i = 0; i < parts.length; i++) {
-                    indice[i] = Integer.parseInt(parts[i]) - 1;
+               diceHand.rerollDie(position);
+                if (j != 1) {
+                    io.afficher(diceHand.toString());
                 }
             }
-            diceHand.rerollDie(indice);
-            compteurRepete++;
-        } while (estRepete || compteurRepete != 2);
+        }
+        io.afficher(diceHand.toString());
+       return diceHand.getValue();
     }
 }
