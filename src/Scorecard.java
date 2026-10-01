@@ -38,4 +38,8 @@ public class Scorecard {
         }
         return pointTotal;
     }
+
+    public ArrayList<ScoreEntry> getHistorique() {
+        return historique;
+    }
 }
