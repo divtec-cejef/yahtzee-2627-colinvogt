@@ -4,6 +4,10 @@ public class Game {
     private final ConsoleIO io;
     private final Player PLAYER;
 
+    /**
+     * Contruit la partie
+     * @param io L'entré et la sortie de la console
+     */
     public Game(ConsoleIO io) {
         this.io = io;
         io.afficher("Quel est votre nom ?");
@@ -12,6 +16,9 @@ public class Game {
         this.PLAYER = new Player(nomJoueur, feuilleScore);
     }
 
+    /**
+     * Joue la partie
+     */
     public void jouerPartie() {
         for (int i = 0; i < 5; i++) {
             io.afficher("\nMANCHE " + (i + 1) + "\n");
