@@ -28,7 +28,7 @@ public class Game {
             ArrayList<Category> categoriesDisponibles = new ArrayList<>();
 
             for (Category categorie : Category.values()) {
-                if (!PLAYER.getFeuilleScore().estUtilisee(categorie)) {
+                if (PLAYER.getFeuilleScore().estUtilisee(categorie)) {
                     categoriesDisponibles.add(categorie);
                     String ligne = String.format("%d.%-15s [%d pts]", categoriesDisponibles.size(), categorie.getNom(), categorie.getScore(resultatDes));
                     io.afficher(ligne);
@@ -45,5 +45,7 @@ public class Game {
             String prompt = String.format("%-15s [%d pts]", entry.getCategory().getNom(), entry.getPointObtenu());
             io.afficher(prompt);
         }
+        String prompt = String.format("Point Totaux : %d", PLAYER.getFeuilleScore().calculPointTotal());
+        io.afficher(prompt);
     }
 }
