@@ -41,6 +41,8 @@ public class Game {
             ScoreEntry entry = new ScoreEntry(categorieChoisie, points, resultatDes.getValue());
             PLAYER.getFeuilleScore().ajouterScore(entry);
         }
+
+        io.afficher("\nJoueur : " + PLAYER.getNom());
         for (ScoreEntry entry : PLAYER.getFeuilleScore().getHistorique()) {
             String prompt = String.format("%-15s [%d pts]", entry.getCategory().getNom(), entry.getPointObtenu());
             io.afficher(prompt);
