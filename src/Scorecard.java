@@ -8,7 +8,7 @@ public class Scorecard {
      * @param entry le score a ajouter
      */
     public void ajouterScore(ScoreEntry entry) {
-        if (!estUtilisee(entry.getCategory())) {
+        if (estUtilisee(entry.getCategory())) {
             historique.add(entry);
         }
     }
@@ -21,10 +21,10 @@ public class Scorecard {
     public boolean estUtilisee(Category categorie) {
         for (ScoreEntry entry : historique) {
             if (entry.getCategory() == categorie) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**
