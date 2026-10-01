@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Game {
     private final ConsoleIO io;
@@ -44,7 +45,7 @@ public class Game {
 
         io.afficher("\nJoueur : " + PLAYER.getNom());
         for (ScoreEntry entry : PLAYER.getFeuilleScore().getHistorique()) {
-            String prompt = String.format("%-15s [%d pts]", entry.getCategory().getNom(), entry.getPointObtenu());
+            String prompt = String.format("%-15s [%d pts] %s", entry.getCategory().getNom(), entry.getPointObtenu(), Arrays.toString(entry.getJetFinal()));
             io.afficher(prompt);
         }
         String prompt = String.format("Point Totaux : %d", PLAYER.getFeuilleScore().calculPointTotal());
