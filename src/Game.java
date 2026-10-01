@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Game {
     private final ConsoleIO io;
     private final Player PLAYER;
@@ -8,5 +10,33 @@ public class Game {
         String nomJoueur = io.lireLigne();
         Scorecard feuilleScore = new Scorecard();
         this.PLAYER = new Player(nomJoueur, feuilleScore);
+    }
+
+    public void jouerPartie() {
+        for (int i = 0; i < 5; i++) {
+            io.afficher("\nMANCHE " + (i + 1) + "\n");
+            Round round = new Round(io);
+            DiceHand resultatDes = round.jouerManche();
+
+            ArrayList<Category> categoriesDisponibles = new ArrayList<>();
+
+            for (Category categorie : Category.values()) {
+                if (!PLAYER.getFeuilleScore().estUtilisee(categorie)) {
+                    categoriesDisponibles.add(categorie);
+                    String ligne = String.format("%d.%-15s [%d pts]", categoriesDisponibles.size(), categorie.getNom(), categorie.getScore(resultatDes));
+                    io.afficher(ligne);
+                }
+            }
+            String choix = io.lireLigne();
+            int numeroChoisi = Integer.parseInt(choix);
+            Category categorieChoisie = categoriesDisponibles.get(numeroChoisi - 1);
+            int points = categorieChoisie.getScore(resultatDes);
+            ScoreEntry entry = new ScoreEntry(categorieChoisie, points, resultatDes.getValue());
+            PLAYER.getFeuilleScore().ajouterScore(entry);
+        }
+        for (ScoreEntry entry : PLAYER.getFeuilleScore().getHistorique()) {
+            String prompt = String.format("%-15s [%d pts]", entry.getCategory().getNom(), entry.getPointObtenu());
+            io.afficher(prompt);
+        }
     }
 }
